@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <title>Rental Car Details</title>
+</head>
+<body>
+<div align="center">
+  <h1>Vehicle Details</h1>
+  <p>ID: <span th:text="${car.id}"></span></p>
+  <p>Model: <span th:text="${car.model}"></span></p>
+  <p>Available Status: <span th:text="${car.available}"></span></p>
+  <form th:if="${car.available == 'true'}" th:action="@{'/car/rent/' + ${car.id}}" method="post">
+    <select th:field="*{customerId}">
+      <option th:each="customer : ${customers}" th:value="${customer.id}" th:text="${customer.fullName}"></option>
+    </select>
+    <button type="submit">Rent Car</button>
+  </form>
+  <a th:if="${car.available == 'false'}" th:href="@{'/car/return/' + ${car.id}}" class="return-link">Return Car</a>
+  <a th:if="${car.available == 'false'}" th:href="@{'/car/return/' + ${car.id}}" class="return-link">Return Car</a>
+  <button onclick="location.href='/';">Go Back</button>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8"/>
+  <title>Rental Cars</title>
+</head>
+<body>
+<div align="center">
+  <h1>List of Rental Cars</h1>
+  <table border="3" cellpadding="10">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Make</th>
+      <th>Model</th>
+      <th>Transmission</th>
+      <th>Color</th>
+      <th>Year</th>
+      <th>Available?</th>
+      <th>Customer</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="car : ${rentalCars}">
+      <td th:text="${car.id}">ID</td>
+      <td th:text="${car.make}">Make</td>
+      <td th:text="${car.model}">Model</td>
+      <td th:text="${car.transmission}">Transmission</td>
+      <td th:text="${car.color}">Color</td>
+      <td th:text="${car.year}">Year</td>
+      <td th:text="${car.available}">Available?</td>
+      <td th:text="${car.customer?.fullName}">Customer</td>
+      <td>
+        <a th:href="@{'/car/edit/' + ${car.id}}">Edit</a>
+        <a th:href="@{'/car/delete/' + ${car.id}}">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h2><button type="button" onclick="location.href='/new_car';">New Car</button></h2>
+</div>
+</body>
+</html>

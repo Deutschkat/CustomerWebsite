@@ -2,6 +2,8 @@ package com.example.CustomerWebsite.controller;
 
 import com.example.CustomerWebsite.models.Customer;
 import com.example.CustomerWebsite.models.CustomerService;
+import com.example.CustomerWebsite.models.RentalCar;
+import com.example.CustomerWebsite.models.RentalCarService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ public class CustomerWebsiteController {
 
     @Autowired
     private final CustomerService customerService;
+    private final RentalCarService rentalCarService;
 
     @GetMapping("/")
     public String viewHomePage(Model model) {
@@ -36,36 +39,65 @@ public class CustomerWebsiteController {
     }
 
     @PostMapping(value = "/save")
-    public String saveCustomer(@ModelAttribute("customer") Customer customer){
-        customerService.saveCustomer(customer);
-        return "redirect:/";
+    public String saveCustomer(@ModelAttribute("customer") Customer customer, Model model){
+        try {
+            customerService.saveCustomer(customer);
+            return "redirect:/";
+        } catch (Exception ex) {
+            model.addAttribute("errorMessage", ex.getMessage());
+            return "error";
+        }
     }
 
     @GetMapping("/edit/{id}")
-    public ModelAndView showEditCustomerPage(@PathVariable(name = "id") Long id){
-        ModelAndView mav = new ModelAndView("edit-customer");
-        Customer customer = customerService.getCustomer(id);
-        mav.addObject("customer", customer);
-        return mav;
+    public ModelAndView showEditCustomerPage(@PathVariable(name = "id") Long id, Model model){
+        try {
+            ModelAndView mav = new ModelAndView("edit-customer");
+            Customer customer = customerService.getCustomer(id);
+            List<RentalCar> availableCars = rentalCarService.getAllAvailableCars();
 
+            model.addAttribute("customer", customer);
+            model.addAttribute("availableCars", availableCars);
+
+            if (customer == null) {
+                throw new IllegalArgumentException("No customer with the ID number of: " + id);
+            }
+            mav.addObject("customer", customer);
+            return mav;
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return new ModelAndView("error");
+        }
     }
 
     @PostMapping("/update/{id}")
     public String updateCustomer(@PathVariable(name = "id") Long id, @ModelAttribute("customer") Customer customer, Model model) {
-        if (!id.equals(customer.getId())) {
-            model.addAttribute("message",
-                    "Cannot update, customer id " + customer.getId()
-                            + " doesn't match id to be updated: " + id + ".");
-            return "error-page";
+        try {
+            if (customer.getCarId() != null) {
+                rentalCarService.rentCar(customer.getCarId(), id);
+            }
+
+            customerService.saveCustomer(customer);
+            return "redirect:/";
+        } catch (Exception ex) {
+            model.addAttribute("errorMessage", ex.getMessage());
+            return "error";
         }
-        customerService.saveCustomer(customer);
-        return "redirect:/";
     }
 
     @RequestMapping("/delete/{id}")
-    public String deleteCustomer(@PathVariable(name = "id") Long id) {
-        customerService.deleteCustomer(id);
-        return "redirect:/";
+    public String deleteCustomer(@PathVariable(name = "id") Long id, Model model) {
+        try {
+            Customer customer = customerService.getCustomer(id);
+            if (customer == null) {
+                throw new IllegalArgumentException("Sorry, cant delete . No customer with the id number: " + id + ".");
+            }
+            customerService.deleteCustomer(id);
+            return "redirect:/";
+        } catch (Exception ex) {
+            model.addAttribute("errorMessage", ex.getMessage());
+            return "error";
+        }
     }
 
 }

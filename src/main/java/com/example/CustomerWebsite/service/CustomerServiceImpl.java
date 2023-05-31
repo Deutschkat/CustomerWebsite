@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -28,24 +29,32 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @Transactional
     public Customer saveCustomer(Customer customer){
+        if (customer == null) {
+            throw new IllegalArgumentException("Customer must not be empty.");
+        }
         return customerRepository.save(customer);
     }
-
     @Override
     public Customer getCustomer(Long id) {
         return customerRepository.findById(id)
-                .orElse(null);
+                .orElseThrow(() -> new IllegalArgumentException("No customer with the ID number: " + id));
     }
 
     @Override
     @Transactional
     public void deleteCustomer(Long id){
+        if (!customerRepository.existsById(id)) {
+            throw new NoSuchElementException("No customer with the ID number" + id);
+        }
         customerRepository.deleteById(id);
     }
 
     @Override
     @Transactional
     public List<Customer> saveAllCustomer(List<Customer> customerList){
+        if (customerList == null || customerList.isEmpty()) {
+            throw new IllegalArgumentException("Customer list cannot be empty.");
+        }
         return customerRepository.saveAll(customerList);
     }
 

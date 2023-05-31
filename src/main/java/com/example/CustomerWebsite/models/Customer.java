@@ -20,5 +20,10 @@ public class Customer {
     private String emailAddress;
     private Integer age;
     private String address;
+    private Long carId;
+
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    private RentalCar rentalCar;
+
 
 }

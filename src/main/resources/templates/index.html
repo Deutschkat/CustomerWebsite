@@ -9,7 +9,7 @@
 
   <h1>Customer List</h1>
   <br/><br/>
-  <table border="1" cellpadding="10">
+  <table border="3" cellpadding="10">
     <thead>
     <tr>
       <!--
@@ -22,7 +22,10 @@
       <th>Email Address</th>
       <th>Age</th>
       <th>Address</th>
-      <th>Actions</th>
+      <th>Rented Car</th>
+      <th>Rent/Edit</th>
+      <th>Return</th>
+      <th>Delete</th>
     </tr>
     </thead>
     <!--
@@ -38,13 +41,15 @@
       <td th:text="${customer.emailAddress}">Email Address</td>
       <td th:text="${customer.age}">Age</td>
       <td th:text="${customer.address}">Address</td>
-      <td><a th:href="@{'/edit/' + ${customer.id}}">Edit</a></td>
+      <td th:text="${customer.rentalCar != null ? customer.rentalCar.id : 'No car rented'}">Rented Car</td>
+      <td><a th:href="@{'/edit/' + ${customer.id}}">Rent/Edit</a></td>
+      <td><a th:href="@{'/rental/' + ${customer.id}}">Return</a></td>
       <td><a th:href="@{'/delete/' + ${customer.id}}">Delete</a></td>
 
     </tr>
     </tbody>
   </table>
-  <h2> <a th:href="@{/new}">Add New Customer</a></h2>
+  <h2><button type="button" onclick="location.href='/new';">Add New Customer</button></h2>
 </div>
 </body>
 </html>

@@ -6,7 +6,8 @@
 </head>
 <body>
 <div align="center">
-  <h1>Edit Existing Customer</h1>
+  <h1>Rent Car/Edit Existing Customer</h1>
+  <h2>To rent a car: </h2>
   <br />
   <!--
   The form below uses a structure similar to the new-customer page.  But this time,
@@ -36,6 +37,11 @@
         <td>Address:</td>
         <td><textarea type="text" th:field="*{address}" required></textarea></td>
       </tr>
+      <select th:field="*{carId}">
+        <option value="">Select a Car to Rent</option>
+        <option th:each="car : ${availableCars}" th:value="${car.id}" th:text="${car.year + ' ' + car.make + ' ' + car.model + ' (' + car.transmission + ')'}"></option>
+      </select>
+
       <tr>
         <td colspan="2"><button type="submit">Save</button></td>
       </tr>
