@@ -3,6 +3,7 @@ package com.example.CustomerWebsite;
 
 import com.example.CustomerWebsite.models.Customer;
 import com.example.CustomerWebsite.models.CustomerService;
+import com.example.CustomerWebsite.models.Role;
 import com.example.CustomerWebsite.models.User;
 import com.example.CustomerWebsite.repositories.RoleRepository;
 import com.example.CustomerWebsite.repositories.UserRepository;
@@ -12,22 +13,17 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import javax.management.relation.Role;
 import java.util.Arrays;
 import java.util.Collections;
-
 
 @SpringBootApplication
 public class CustomerWebsiteApplication {
 
-	private final UserRepository userRepository;
-	private final RoleRepository roleRepository;
+	@Autowired
+	private UserRepository userRepository;
 
 	@Autowired
-	public CustomerWebsiteApplication(UserRepository userRepository, RoleRepository roleRepository) {
-		this.userRepository = userRepository;
-		this.roleRepository = roleRepository;
-	}
+	private RoleRepository roleRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CustomerWebsiteApplication.class, args);
