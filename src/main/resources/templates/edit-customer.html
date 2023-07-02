@@ -9,11 +9,7 @@
   <h1>Rent Car/Edit Existing Customer</h1>
   <h2>To rent a car: </h2>
   <br />
-  <!--
-  The form below uses a structure similar to the new-customer page.  But this time,
-  since the Customer object fields were populated before it was added to the model, their
-  values populate the fields here. Any changes to the fields then POST to the update endpoint.
-  -->
+
   <form action="#" th:action="@{'/update/' + ${customer.id}}" th:object="${customer}"
         method="post">
     <table border="0" cellpadding="10">

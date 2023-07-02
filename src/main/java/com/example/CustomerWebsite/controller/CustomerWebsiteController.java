@@ -22,12 +22,16 @@ public class CustomerWebsiteController {
     private final RentalCarService rentalCarService;
 
     @GetMapping("/")
-    public String viewHomePage(Model model) {
-        final List<Customer> customerList = customerService.getAllCustomers();
-
-        model.addAttribute("customerList", customerList);
+    public String viewHomePage() {
         return "index";
 
+    }
+
+    @GetMapping("/customer-list")
+    public String customerList(Model model) {
+        final List<Customer> customerList = customerService.getAllCustomers();
+        model.addAttribute("customerList", customerList);
+        return "customer-list";
     }
 
     @GetMapping("/new")
