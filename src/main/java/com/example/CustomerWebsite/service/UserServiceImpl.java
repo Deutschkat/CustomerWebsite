@@ -18,28 +18,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isUsernameTaken(String username) {
-        // Implementation to check if the username is already taken in the database
-        // You can use userRepository.findByUsername(username) to query the database
-        // and check if the result is not null
+
         User existingUser = userRepository.findByUsername(username);
         return existingUser != null;
     }
 
     @Override
     public boolean isEmailRegistered(String email) {
-        // Implementation to check if the email is already registered in the database
-        // You can use userRepository.findByEmail(email) to query the database
-        // and check if the result is not null
         User existingUser = userRepository.findByEmail(email);
         return existingUser != null;
     }
 
     @Override
     public void registerUser(User user) {
-        // Implementation to save the user to the database
-        // You can use userRepository.save(user) to persist the user entity
+
         userRepository.save(user);
     }
 
-    // Other methods here
+
 }
