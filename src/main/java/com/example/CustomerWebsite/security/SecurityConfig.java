@@ -1,22 +1,28 @@
 package com.example.CustomerWebsite.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
                 .antMatchers("/", "/webjars/**", "/css/**", "/login/**", "/images/**", "/register").permitAll()
-                .antMatchers("/customer-view").hasRole("USER_ROLE")
-                .anyRequest().hasRole("ADMIN_ROLE")
+                .antMatchers("/customer-view").hasRole("USER")
+                .anyRequest().hasRole("ADMIN")
                 .and()
-                .formLogin();
+                .formLogin()
+                .defaultSuccessUrl("/customer-list", true);
     }
 
 
@@ -24,8 +30,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .inMemoryAuthentication()
-                .withUser("user").password("user").roles("USER_ROLE")
+                .withUser("user").password(passwordEncoder.encode("user")).roles("USER")
                 .and()
-                .withUser("admin").password("admin").roles("USER_ROLE", "ADMIN_ROLE");
+                .withUser("admin").password(passwordEncoder.encode("admin")).roles("USER", "ADMIN");
     }
+
+
 }

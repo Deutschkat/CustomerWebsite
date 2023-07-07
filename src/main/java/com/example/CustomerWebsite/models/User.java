@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.management.relation.Role;
+import com.example.CustomerWebsite.models.Role;
 import javax.persistence.*;
 import java.util.Set;
 

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.management.relation.Role;
+import com.example.CustomerWebsite.models.Role;
 import javax.validation.Valid;
 import java.util.Collections;
 
@@ -50,7 +50,7 @@ public class UserController {
                 return "register";
             }
 
-            Role userRole = roleRepository.findByName("USER_ROLE");
+            Role userRole = roleRepository.findByName("USER");
             if (userRole == null) {
                 throw new RuntimeException("User role not found");
             }
