@@ -46,7 +46,7 @@ public class CustomerWebsiteController {
     public String saveCustomer(@ModelAttribute("customer") Customer customer, Model model){
         try {
             customerService.saveCustomer(customer);
-            return "redirect:/";
+            return "redirect:/customer-list";
         } catch (Exception ex) {
             model.addAttribute("errorMessage", ex.getMessage());
             return "error";
@@ -82,7 +82,7 @@ public class CustomerWebsiteController {
             }
 
             customerService.saveCustomer(customer);
-            return "redirect:/";
+            return "redirect:/customer-list";
         } catch (Exception ex) {
             model.addAttribute("errorMessage", ex.getMessage());
             return "error";
@@ -97,7 +97,7 @@ public class CustomerWebsiteController {
                 throw new IllegalArgumentException("Sorry, cant delete . No customer with the id number: " + id + ".");
             }
             customerService.deleteCustomer(id);
-            return "redirect:/";
+            return "redirect:/customer-list";
         } catch (Exception ex) {
             model.addAttribute("errorMessage", ex.getMessage());
             return "error";
