@@ -3,21 +3,57 @@
 <head>
   <meta charset="utf-8" />
   <title>Rental Page</title>
+  <style>
+    body {
+      background-color: #f7f7f7;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 40px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    h1 {
+      font-size: 28px;
+      color: #343a40;
+      margin-bottom: 20px;
+    }
+    h2 {
+      font-size: 24px;
+      color: #343a40;
+      margin-bottom: 15px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #8FBC8F;
+      border: none;
+      color: #fff;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #779977;
+    }
+  </style>
 </head>
 <body>
-<div align="center">
+<div class="container">
   <h1>Rental Page</h1>
-  <h2> Customer Name: <td th:text="${customer.fullName}">Full Name</td></h2>
-  <h2> Customer ID: <td th:text="${customer.id}">ID</td></h2>
-  <h2> Current Rental: <td th:text="${customer.carId}">ID</td></h2>
-
-
-  </h2>
+  <h2>Customer Name: <span th:text="${customer.fullName}">Full Name</span></h2>
+  <h2>Customer ID: <span th:text="${customer.id}">ID</span></h2>
+  <h2>Current Rental: <span th:text="${customer.carId}">ID</span></h2>
 
   <form th:if="${customer.rentalCar != null}" th:action="@{'/car/return/' + ${customer.rentalCar.id}}" method="post">
     <button type="submit">Return Car</button>
   </form>
-
 </div>
 </body>
 </html>
