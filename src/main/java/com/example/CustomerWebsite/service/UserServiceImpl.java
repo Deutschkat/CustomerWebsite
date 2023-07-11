@@ -4,7 +4,10 @@ import com.example.CustomerWebsite.models.User;
 import com.example.CustomerWebsite.models.UserService;
 import com.example.CustomerWebsite.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -29,9 +32,10 @@ public class UserServiceImpl implements UserService {
         return existingUser != null;
     }
 
+    //WORKING HERE
     @Override
     public void registerUser(User user) {
-
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userRepository.save(user);
     }
 

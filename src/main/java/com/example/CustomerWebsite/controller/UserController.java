@@ -5,6 +5,7 @@ import com.example.CustomerWebsite.models.UserService;
 import com.example.CustomerWebsite.repositories.RoleRepository;
 import com.example.CustomerWebsite.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,10 @@ public class UserController {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+
+
+    @Autowired
+    private UserService userService;
 
     public UserController(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
@@ -56,7 +61,7 @@ public class UserController {
             }
             user.setRoles(Collections.singleton(userRole));
 
-            userRepository.save(user);
+            userService.registerUser(user);
             return "redirect:/login";
         } catch (Exception ex) {
             model.addAttribute("errorMessage", ex.getMessage());
