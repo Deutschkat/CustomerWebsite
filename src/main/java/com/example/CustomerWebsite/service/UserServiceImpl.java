@@ -1,5 +1,6 @@
 package com.example.CustomerWebsite.service;
 
+import com.example.CustomerWebsite.models.Customer;
 import com.example.CustomerWebsite.models.User;
 import com.example.CustomerWebsite.models.UserService;
 import com.example.CustomerWebsite.repositories.UserRepository;
@@ -8,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -38,6 +40,12 @@ public class UserServiceImpl implements UserService {
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userRepository.save(user);
     }
+
+    public User getUser(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("No user with the ID number: " + id));
+    }
+
 
 
 }

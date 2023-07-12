@@ -1,9 +1,7 @@
 package com.example.CustomerWebsite.controller;
 
-import com.example.CustomerWebsite.models.Customer;
-import com.example.CustomerWebsite.models.CustomerService;
-import com.example.CustomerWebsite.models.RentalCar;
-import com.example.CustomerWebsite.models.RentalCarService;
+import com.example.CustomerWebsite.models.*;
+import com.example.CustomerWebsite.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -20,6 +20,8 @@ public class CustomerWebsiteController {
     @Autowired
     private final CustomerService customerService;
     private final RentalCarService rentalCarService;
+
+    private final UserRepository userRepository;
 
     @GetMapping("/")
     public String viewHomePage() {
@@ -33,6 +35,16 @@ public class CustomerWebsiteController {
         model.addAttribute("customerList", customerList);
         return "customer-list";
     }
+
+    // WORKING
+    @GetMapping("/customer-view")
+    public String viewCustomerDetails(Model model, Principal principal) {
+        String username = principal.getName();
+        User user = userRepository.findByUsername(username);
+        model.addAttribute("user", user);
+        return "customer-view";
+    }
+
 
     @GetMapping("/new")
     public String showNewCustomerPage(Model model){
@@ -103,5 +115,16 @@ public class CustomerWebsiteController {
             return "error";
         }
     }
+
+    @RequestMapping("/default")
+    public String defaultAfterLogin(HttpServletRequest request) {
+        if (request.isUserInRole("ADMIN")) {
+            return "redirect:/customer-list/";
+        } else if (request.isUserInRole("USER")) {
+           return "redirect:/customer-view/";
+        }
+        return "redirect:/error/";
+    }
+
 
 }

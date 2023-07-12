@@ -8,5 +8,6 @@ public interface UserService {
 
     void registerUser(User user);
 
+    User getUser(Long id);
 
 }

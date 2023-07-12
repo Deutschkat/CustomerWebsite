@@ -48,39 +48,13 @@
 <body>
 <div class="container">
   <div class="jumbotron text-center">
-    <h1>Customer List</h1>
+    <h1>Customer Dashboard</h1>
   </div>
-  <table class="table table-bordered">
-    <thead>
-    <tr>
-      <th>Customer ID</th>
-      <th>Full Name</th>
-      <th>Email Address</th>
-      <th>Age</th>
-      <th>Address</th>
-      <th>Rented Car</th>
-      <th>Rent/Edit</th>
-      <th>Return</th>
-      <th>Delete</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="customer : ${customerList}">
-      <td th:text="${customer.id}">Customer ID</td>
-      <td th:text="${customer.fullName}">Full Name</td>
-      <td th:text="${customer.emailAddress}">Email Address</td>
-      <td th:text="${customer.age}">Age</td>
-      <td th:text="${customer.address}">Address</td>
-      <td th:text="${customer.rentalCar != null ? customer.rentalCar.id : 'No car rented'}">Rented Car</td>
-      <td><a th:href="@{'/edit/' + ${customer.id}}" class="btn btn-primary button">Rent/Edit</a></td>
-      <td><a th:href="@{'/rental/' + ${customer.id}}" class="btn btn-primary button">Return</a></td>
-      <td><a th:href="@{'/delete/' + ${customer.id}}" class="btn btn-primary button">Delete</a></td>
-    </tr>
-    </tbody>
-  </table>
-  <h2><a th:href="@{/new}" class="btn btn-primary button">Add New Customer</a>
-    <a th:href="@{/logout}" class="btn btn-primary button">Logout</a>
-  </h2>
+  <h1>Welcome, <span th:text="${user.username}"></span>!</h1>
+  <p>User ID: <span th:text="${user.id}"></span></p>
+  <p>Full Name: <span th:text="${user.fullName}"></span></p>
+  <p>Email: <span th:text="${user.email}"></span></p>
+  <h2><a th:href="@{/logout}" class="btn btn-primary button">Logout</a></h2>
 </div>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
