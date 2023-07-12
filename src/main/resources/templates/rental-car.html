@@ -83,7 +83,7 @@
   </form>
 
   <a th:if="${car.available == 'false'}" th:href="@{'/car/return/' + ${car.id}}" class="return-link">Return Car</a>
-  <button onclick="location.href='/customer-list';">Go Back</button>
+  <button onclick="location.href='/customer-list';">Back</button>
 </div>
 </body>
 </html>

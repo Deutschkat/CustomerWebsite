@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <title>Current Rental</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
     body {
+      padding: 20px;
       background-color: #f7f7f7;
-      font-family: Arial, sans-serif;
     }
     .container {
       max-width: 600px;
       margin: 0 auto;
       padding: 40px;
       background-color: #fff;
-      border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      text-align: center;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
     h1 {
       font-size: 28px;
@@ -23,44 +23,47 @@
       margin-bottom: 20px;
     }
     h2 {
-      font-size: 24px;
+      font-size: 22px;
       color: #343a40;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
-    button {
-      padding: 10px 20px;
+    .info {
+      font-size: 18px;
+      color: #343a40;
+      margin-bottom: 10px;
+    }
+    .button {
+      margin-top: 20px;
       background-color: #8FBC8F;
-      border: none;
-      color: #fff;
-      text-align: center;
-      text-decoration: none;
-      border-radius: 4px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.3s;
+      border-color: #8FBC8F;
     }
-    button:hover {
+    .button:hover {
       background-color: #779977;
+      border-color: #779977;
     }
   </style>
 </head>
 <body>
 <div class="container">
   <h1>Rental Page</h1>
-  <h2>Customer Name: <span th:text="${customer.fullName}">Full Name</span></h2>
-  <h2>Customer ID: <span th:text="${customer.id}">ID</span></h2>
-  <div class="car-info">
-    <h2>Current Vehicle: <span th:text="${customer.rentalCar.model}">Model</span></h2>
-    <h2 class="car-color" th:text="'(' + ${customer.rentalCar.color} + ')'">Color</h2>
+  <div>
+    <h2>Customer Details</h2>
+    <p class="info">ID: <span th:text="${customer.id}">ID</span></p>
+    <p class="info">Name: <span th:text="${customer.fullName}">Full Name</span></p>
+    <p class="info">Address: <span th:text="${customer.address}">ID</span></p>
   </div>
+  <div class="car-info">
+    <h2>Car Details</h2>
+    <p class="info">Vehicle ID: <span th:text="${customer.carId}">ID</span></p>
+    <p class="info">Model: <span th:text="${customer.rentalCar.model}">Model</span></p>
+    <p class="info">Color: <span th:text="'(' + ${customer.rentalCar.color} + ')'">Color</span></p>
 
-  <h2>Vehicle ID: <span th:text="${customer.carId}">ID</span></h2>
-
-
-
+  </div>
   <form th:if="${customer.rentalCar != null}" th:action="@{'/car/return/' + ${customer.rentalCar.id}}" method="post">
-    <button type="submit">Return Car</button>
+    <a th:href="@{/customer-list}" class="btn btn-primary button">Back</a>
+    <button type="submit" class="btn btn-primary button">Return Car</button>
   </form>
 </div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
