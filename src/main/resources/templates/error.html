@@ -1,12 +1,47 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8" />
-  <title>Error Message</title>
+  <meta charset="UTF-8">
+  <title>Error</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+        body {
+            padding: 20px;
+            background-color: #f7f7f7;
+        }
+
+        .jumbotron {
+            background-color: #5F9EA0;
+            color: #fff;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 0;
+        }
+
+        .button {
+            margin-top: 10px;
+            background-color: #8FBC8F;
+            border-color: #8FBC8F;
+        }
+
+        .button:hover {
+            background-color: #779977;
+            border-color: #779977;
+        }
+    </style>
 </head>
 <body>
-<h1>Oops. An error has occurred.</h1>
-<p th:text="${errorMessage}">Error Message</p>
-<a th:href="@{/}">Return</a>
+<div class="container">
+  <div class="jumbotron text-center">
+    <h1>Error Message</h1>
+  </div>
+  <h1>Oops. An error has occurred.</h1>
+  <p th:text="${errorMessage}">Error Message</p>
+  <h2>
+    <a th:href="@{/}" class="btn btn-primary button">Return To Home Page</a>
+    <a th:href="@{/customer-view}" class="btn btn-primary button">Return To Dashboard</a>
+  </h2>
+</div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

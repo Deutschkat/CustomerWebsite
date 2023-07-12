@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Customer Manager</title>
+  <title>Customer Manager - Logout</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
     body {
@@ -48,15 +48,12 @@
 <body>
 <div class="container">
   <div class="jumbotron text-center">
-    <h1>Customer Dashboard</h1>
+    <h1>Logout Success!</h1>
   </div>
-  <h1>Welcome, <span th:text="${user.username}"></span>!</h1>
-  <p>User ID: <span th:text="${user.id}"></span></p>
-  <p>Full Name: <span th:text="${user.fullName}"></span></p>
-  <p>Email: <span th:text="${user.email}"></span></p>
+  <h1>You have been successfully logged out.</h1>
+  <p>Thank you for using Cars-R-Us!</p>
   <h2>
-    <a th:href="@{/}" class="btn btn-primary button">Return Home</a>
-    <a th:href="@{/logout}" class="btn btn-primary button">Logout</a></h2>
+    <a th:href="@{/}" class="btn btn-primary button">Return Home</a></h2>
 </div>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
